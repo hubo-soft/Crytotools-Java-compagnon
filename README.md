@@ -1,7 +1,7 @@
 # JAVA_COMPAGNON
 
 A **Java companion tool** to exchange and use cryptographic keys with the iOS app **[Crypto Tools (De/Encryption)](https://apps.apple.com/fr/app/crypto-tools-de-encryption/id1670173533)**.  
-It enables **file encryption and decryption** using **Elliptic Curve Cryptography (EC / P-256)** across iOS and desktop environments (**Linux / Windows / macOS**).
+It enables **file encryption and decryption** using **Elliptic Curve Cryptography NTIS (EC / P-256)** across iOS and desktop environments (**Linux / Windows / macOS**).
 
 ---
 
@@ -215,15 +215,10 @@ openssl ecparam -genkey -name secp256r1 | openssl pkcs8 -topk8 -inform PEM -outf
 ### Derive Public Keys from DER Private Keys
 
 ```bash
-# For P-256
+# For P-256 (NTIS-256)
 openssl ec -inform DER -in private_p256.der -pubout -outform DER -out public_p256.der
 
-# For P-384
-openssl ec -inform DER -in private_p384.der -pubout -outform DER -out public_p384.der
 
-# For P-521
-openssl ec -inform DER -in private_p521.der -pubout -outform DER -out public_p521.der
-```
 
 > **Notes**
 > - Curve names: `secp256r1` (aka **P-256**), `secp384r1` (P-384), `secp521r1` (P-521).
