@@ -190,6 +190,48 @@ src/main/java/org/example/
 
 ---
 
+
+---
+
+## Generate DER Keys with OpenSSL (Linux / Windows)
+
+Below are practical commands to create **EC keys in DER format** compatible with this project and the iOS app.  
+They work on **Linux** and **Windows** (using Git Bash, WSL, or OpenSSL binaries).
+
+### Generate P-256 Private Key in DER
+
+```bash
+# Generate a P-256 private key in PEM, then convert to DER
+openssl ecparam -genkey -name secp256r1 -out private_p256.pem
+openssl pkcs8 -topk8 -inform PEM -outform DER -in private_p256.pem -out private_p256.der -nocrypt
+```
+
+**Or in a single command:**
+
+```bash
+openssl ecparam -genkey -name secp256r1 | openssl pkcs8 -topk8 -inform PEM -outform DER -nocrypt -out private_p256.der
+```
+
+### Derive Public Keys from DER Private Keys
+
+```bash
+# For P-256
+openssl ec -inform DER -in private_p256.der -pubout -outform DER -out public_p256.der
+
+# For P-384
+openssl ec -inform DER -in private_p384.der -pubout -outform DER -out public_p384.der
+
+# For P-521
+openssl ec -inform DER -in private_p521.der -pubout -outform DER -out public_p521.der
+```
+
+> **Notes**
+> - Curve names: `secp256r1` (aka **P-256**), `secp384r1` (P-384), `secp521r1` (P-521).
+> - For interoperability with this project and the iOS app, **P-256** is the recommended default.
+> - The `-nocrypt` flag writes the private key **unencrypted**; secure the file permissions accordingly.
+> - On Windows, install OpenSSL (e.g., via Git for Windows, WSL, or a standalone distribution).
+
+
 ## Troubleshooting
 
 - **`InvalidKeyException` / `Unsupported curve`:**
@@ -215,5 +257,5 @@ src/main/java/org/example/
 ---
 
 ## License
-  MIT
+MIT
 
