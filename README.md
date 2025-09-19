@@ -217,7 +217,7 @@ openssl ecparam -genkey -name secp256r1 | openssl pkcs8 -topk8 -inform PEM -outf
 ```bash
 # For P-256 (NTIS-256)
 openssl ec -inform DER -in private_p256.der -pubout -outform DER -out public_p256.der
-
+```
 
 
 > **Notes**
