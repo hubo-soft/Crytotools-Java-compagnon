@@ -1,7 +1,7 @@
 # JAVA_COMPAGNON
 
 A **Java companion tool** to exchange and use cryptographic keys with the iOS app **[Crypto Tools (De/Encryption)](https://apps.apple.com/fr/app/crypto-tools-de-encryption/id1670173533)**.  
-It enables **file encryption and decryption** using **Elliptic Curve Cryptography NTIS (EC / P-256)** across iOS and desktop environments (**Linux / Windows / macOS**).
+It enables **file encryption and decryption** using **Elliptic Curve Cryptography NIST (EC / P-256)** across iOS and desktop environments (**Linux / Windows / macOS**).
 
 ---
 
@@ -95,7 +95,7 @@ This example shows how to exchange encrypted files between **iOS** (Crypto Tools
 
 1. Install **Crypto Tools (De/Encryption)** on iPhone/iPad:  
    👉 https://apps.apple.com/fr/app/crypto-tools-de-encryption/id1670173533
-2. In the app, create an **Elliptic Curve P-256** key pair.
+2. In the app, create an **NIST-P256** key pair.
 3. Export keys in **DER** format:
    - `ios-public.der` (public key — can be shared)
    - `ios-private.der` (private key — **keep secret on iOS**)
@@ -138,7 +138,7 @@ message.txt.enc
 ```text
 +----------------------+                     +--------------------------+
 |       iOS (App)      |                     |        Desktop (Java)    |
-|  Crypto Tools (P-256)|                     |   JAVA_COMPAGNON (P-256) |
+|  Crypto Tools (NIST P-256)|                     |   JAVA_COMPAGNON (NIST P-256) |
 +----------+-----------+                     +------------+-------------+
            |   Generate EC P-256 key pair (DER)           |
            |----------------------------------------------|
@@ -201,7 +201,7 @@ They work on **Linux** and **Windows** (using Git Bash, WSL, or OpenSSL binaries
 ### Generate P-256 Private Key in DER
 
 ```bash
-# Generate a P-256 private key in PEM, then convert to DER
+# Generate a NIST P-256 private key in PEM, then convert to DER
 openssl ecparam -genkey -name secp256r1 -out private_p256.pem
 openssl pkcs8 -topk8 -inform PEM -outform DER -in private_p256.pem -out private_p256.der -nocrypt
 ```
@@ -215,7 +215,7 @@ openssl ecparam -genkey -name secp256r1 | openssl pkcs8 -topk8 -inform PEM -outf
 ### Derive Public Keys from DER Private Keys
 
 ```bash
-# For P-256 (NTIS-256)
+# For NIST P-256 (NTIS-256)
 openssl ec -inform DER -in private_p256.der -pubout -outform DER -out public_p256.der
 ```
 
